@@ -1,0 +1,390 @@
+##	Script by Lukas J. Musher 2022–2023
+
+##  All data analysis and assembly in this file performed on
+##  Weckstein Lab's Latuka server at Academy of Natural Sciences 
+##  of Drexel University (Philadelphia, PA, USA)
+##  or were perfomed on the Cuvier or Huxley servers at 
+##  The American Museum of Natural History (New York, NY, USA)
+
+##	Required software
+##		1. busco v5
+##		2. phyluce v1.7.1
+##		3. MACSE codon-aware alignment software
+##		4. bwa
+##		5. angsd
+##		6. samtools
+##		7. parallel
+##		8. mitoz
+
+##########################################################
+################Reference Genome Map Info#################
+##########################################################
+
+#	The following is a key to the reference genomes used for read mapping each sample
+
+#	LIST OF REFERENCE GENOMES DOWNLOADED FROM NCBI:
+
+#	Reference genome #	Species
+#	1					Tinamus guttatus (TinGut) (monotypic)
+#	2					Eudromia elegans (EudEle) (zoo blood; ROM 44215)
+#	3					Nothoprocta perdicaria (NotPer)(blood; notPer_ROM_Ctin4)
+#	4					Northoprocta ornata branickii (NotOrn)
+#	5					Nothocercus julius (NotJul)(monotypic)
+#	6					Crypturellus undulatus undulatus (CryUnd)
+#	7					Crypturellus soui inconspicuus (CrySou) (San Martin, Peru)
+#	8					Crypturellus cinnamomeus praepes (CryCin)
+#	9					Nothoprocta pentlandii niethammeri (NotPen)
+#	10					Nothocercus nigrocapillus nigrocapillus (NotNig)
+#	11					Little Bush Moa (AnoDid)
+#	12					Rhea pennata (Rhea_penn)
+
+#	Samples to read map:
+
+######	RUN2 samples
+		
+#	Sample name		Species									Reference genome #
+
+#	Tgut85944		Tinamus guttatus (monotypic)			1
+#	Tmser456416		Tinamus major serratus					1
+#	Tsol25977		Tinamus solitarius						1
+#	Ttkle1880		Tinamus tao kleei						1
+#	
+#	Tpen7597		Tinamotis pentlandii					2
+#	Eeele16893		Eudromia elegans elegans				2
+#	Effor8668		Eudromia formosa formosa				2
+#	
+#	Ntac27158		Nothoprocta taczanowskii				3
+#	Rrruf13855		Rhynchotus rufescens rufescens			3
+#	Nbor79764		Nothura boraquira						3
+#	Nccin2861		Nothoprocta cinerascens cinerascens		3
+#	Ndaga68765		Nothura darwinii agassizii				3
+#	Njul32810		Nothocercus julius						3
+#	Nmnig16884		Nothura maculosa nigroguttata			3
+#	
+#	Noorn61422		Nothoprocta ornata ornata				4
+#	
+#	Nbbon33138		Nothocercus bonapartei bonapartei		5
+#	
+#	Ceery21146		Crypturellus erythrops erythrops		6
+#	Cuund34614		Crypturellus undulatus undulatus		6
+#	Cuver35355		Crypturellus undulatus vermiculatus		6
+#	
+#	Cbcos53413 		Crypturellus boucardi costaricensis		7
+#	Cocas11195		Crypturellus obsoletus castaneus		7
+#	Coobs25896		Crypturellus obsoletus obsoletus		7
+#	CparMNT800		Crypturellus parvirostris				7
+#	CsalbGUR081		Crypturellus soui albigularis			7
+#	Cstr9577		Crypturellus strigulosus				7
+#	Ctra66583		Crypturellus transfasciatus				7
+#	Cttat35476		Crypturellus tataupa tataupa			7
+#	Cvar27099		Crypturellus variegatus					7
+#	
+#	Ccgol2213 		Crypturellus cinnamomeus goldmani 		8
+#	Ccin21636		Crypturellus cinereus					8
+#	
+#	Nppen6601		Nothoprocta pentlandii pentlandii		9
+#	
+#	Nncad473927		Nothocercus nigrocapillus cadwaladeri	10
+
+######	RUN2
+
+#	Cbar42396		Crypturellus bartletti					7
+#	Cbre625102		Crypturellus brevirostris				7
+#	Cooch113498		Crypturellus obsoletus ochraceiventris	7
+#	Copun86899		Crypturellus obsoletus punensis			7
+#	Cpta650391		Crypturellus ptaritepui					7
+#	Cscap613347		Crypturellus soui capnodes				7
+#	Csnig6048		Crypturellus soui nigriceps				7
+#	Cspol20397		Crypturellus soui poliocephalus			7
+#	Cssou586295		Crypturellus soui soui					7
+#	Cusim651488		Crypturellus undulatus simplex			6
+#	Cuyap42937		Crypturellus undulatus yapura			6
+#	Eepat56833		Eudromia elegans patagonica				2
+#	Nmann614501		Nothura maculosa annectens				3
+#	Nobra61359		Nothoprocta ornata branickii			4
+#	Noros645439		Nothoprocta ornata rostrata				4
+#	Npnie62872		Nothoprocta pentlandii niethammeri		9
+#	Tmmaj20810		Tinamus major major						1
+#	Tmper40426		Tinamus major peruvianus				1
+
+######	RUN23 (TOEPADS)
+
+#	Cratr320360			Crypturellus atrocapillus atrocapillus	7
+#	Crber182233			Crypturellus berlepschi					7
+#	Crcas434024			Crypturellus casiquiare					7
+#	Crdui419412			Crypturellus duidae						7
+#	Crker147057			Crypturellus kerriae					7
+#	Crnoc59478			Crypturellus noctoivagus noctivagus		7
+#	Nocur425359			Nothoprocta curvirostris peruviana		3
+#	Nomin344282			Nothura minor							3
+#	Rhmac145784			Rhynchotus maculicollis					3
+#	Tanan133116A		Taoniscus nanus 						3 combine clean reads
+#	Tanan133116B		Taoniscus nanus							3 combine clean reads
+#	Tiing186371			Tinamotis ingoufi						2
+#	Tiosg311159			Tinamus osgoodi osgoodi					1
+
+
+############################################################
+################### BUSCO ON REF GENOMES ###################
+############################################################
+
+#cd to busco directory
+cd /home/lmusher/Tinamous/busco
+
+ls ~/Tinamous/references/*.fna | sed 's/.fna//g' > genomes.list
+
+#activate busco conda envi
+#conda install -c bioconda busco
+conda activate busco
+
+#generate for-loop to loop through all reference genomes (Tinamus guttatus, Eudromia elegans, Nothoprocta perdicaria, Northoprocta ornata, Nothocercus julius, Crypturellus undulatus, Crypturellus soui, Emu, Little Bush Moa, North island Brown Kiwi, Lesser Rhea)
+
+for i in `cat genomes.list`; do busco -i ../references/"$i".fna -l aves_odb10 -o "$i".OUT -m genome -c 8 -f; done
+
+
+############################################################
+#################### CLEAN THE RAW DATA ####################
+############################################################
+
+###make list of sample names called 'samps.list'
+for i in `cat samps.list` ; do fastp -i ../toepad_raw_reads/"$i"_L004_R1_001.fastq.gz -I ../toepad_raw_reads/"$i"_L004_R2_001.fastq.gz -o "$i"*_R1_clean.fastq.gz -O "$i"*_R2_clean.fastq.gz; done
+
+############################################################
+####################### READ MAPPING #######################
+############################################################
+
+# the general protocol is to map reads for each Tinamou to the closest available reference using bwa, convert the resulting sam file to a sorted bam file, and finally, use "angsd -doFasta 2" to write the fasta file. "doFasta 2" is necessary to ensure the consensus nucleotide is written at each polymorphic site.
+
+# the closets reference was chosen based on the Tinamou phylogeny in Bertoli et al 2021
+
+#######################
+
+#index reference genomes
+#genomes.list is list of genomes in fasta format to index
+#if only one genome, just do bwa part
+for i in `cat genomes.list`; do bwa index $i; done
+
+for i in `cat genomes.list`; do samtools faidx $i; done
+
+#for each reference genome, we will map the reads of each closely related species in a batch
+###########################
+#map reads to TinGut Genome
+#convert sam to bam
+#sort the bam file & angsd back to fasta format
+
+#ref1.list is a list of all the cleaned-read files (only identifying portion) that you want to map to your reference
+
+for i in `cat ref1.list`; do bwa mem -aM -t 12 ../references/TinGut_GCA_000705375.fna ~/Tinamous/all_clean_reads/"$i"*_R1*gz ~/Tinamous/all_clean_reads/"$i"*_R2*.gz > "$i"-aln.sam; done; cat ref1.list | parallel -j 4 "samtools view -S -b {}-aln.sam > {}-aln.bam"; cat ref1.list | parallel -j 4 "samtools sort {}-aln.bam -o {}-aln.sorted.bam"; cat ref1.list | parallel -j 2 "angsd -doFasta 2 -i {}-aln.sorted.bam -out {}-aln -ref ../references/TinGut_GCA_000705375.fna -doCounts 1"
+
+###########################
+#map reads to EudEle genome
+
+for i in `cat ref2.list`; do bwa mem -aM -t 6 ../references/EudEle_GCA_003342815.fna ~/Tinamous/all_clean_reads/"$i"*_R1*gz ~/Tinamous/all_clean_reads/"$i"*_R2_clean.fastq.gz > "$i"-aln.sam; done; cat ref2.list | parallel -j 2 "samtools view -S -b {}-aln.sam > {}-aln.bam"; cat ref2.list | parallel -j 2 "samtools sort {}-aln.bam -o {}-aln.sorted.bam" ; cat ref2.list | parallel -j 2 "angsd -doFasta 2 -i {}-aln.sorted.bam -out {}-aln -ref ../references/EudEle_GCA_003342815.fna -doCounts 1"
+
+###########################
+#map reads to NotPer genome
+
+for i in `cat ref3.list`; do bwa mem -aM -t 6 ../references/NotPer_GCA_003342845.fna ~/Tinamous/all_clean_reads/"$i"*_R1_clean.fastq.gz ~/Tinamous/all_clean_reads/"$i"*_R2_clean.fastq.gz > "$i"-aln.sam; done 
+
+cat ref3.list | parallel -j 3 "samtools view -S -b {}-aln.sam > {}-aln.bam" ; 
+
+cat ref3.list | parallel -j 3 "samtools sort {}-aln.bam -o {}-aln.sorted.bam" ; cat ref3.list | parallel -j 3 "angsd -doFasta 2 -i {}-aln.sorted.bam -out {}-aln -ref ../references/NotPer_GCA_003342845.fna -doCounts 1"
+
+###########################
+#map reads to NotOrn genome
+
+for i in `cat ref4.list`; do bwa mem -aM -t 8 ../references/NotOrn_GCA_013398335.fna ~/Tinamous/all_clean_reads/"$i"*_R1_clean.fastq.gz ~/Tinamous/all_clean_reads/"$i"*_R2_clean.fastq.gz > "$i"-aln.sam; done; for i in `cat ref4.list`; do samtools view -S -b "$i"-aln.sam > "$i"-aln.bam; done; for i in `cat ref4.list`; do samtools sort "$i"-aln.bam -o "$i"-aln.sorted.bam; done ; for i in `cat ref4.list`; do angsd -doFasta 2 -i "$i"-aln.sorted.bam -out "$i"-aln -ref ../references/NotOrn_GCA_013398335.fna -doCounts 1; done
+
+###########################
+#map reads to NotJul genome
+
+for i in `cat ref5.list`; do bwa mem -aM -t 8 ../references/NotJul_GCA_013398735.fna ~/Tinamous/all_clean_reads/"$i"*_R1_clean.fastq.gz ~/Tinamous/all_clean_reads/"$i"*_R2_clean.fastq.gz > "$i"-aln.sam; done ; for i in `cat ref5.list`; do samtools view -S -b "$i"-aln.sam > "$i"-aln.bam; done ; for i in `cat ref5.list`; do samtools sort "$i"-aln.bam -o "$i"-aln.sorted.bam; done ; for i in `cat ref5.list`; do angsd -doFasta 2 -i "$i"-aln.sorted.bam -out "$i"-aln -ref ../references/NotJul_GCA_013398735.fna -doCounts 1; done
+
+###########################
+#map reads to CryUnd genome
+
+for i in `cat ref6.list` ; do bwa mem -aM -t 8 ../references/CryUnd_GCA_013389825.fna ~/Tinamous/all_clean_reads/"$i"*_R1_clean.fastq.gz ~/Tinamous/all_clean_reads/"$i"*_R2_clean.fastq.gz > "$i"-aln.sam ; done  ; cat ref6.list | parallel -j 4 "samtools view -S -b {}-aln.sam > {}-aln.bam" ; cat ref6.list | parallel -j 4 "samtools sort {}-aln.bam -o {}-aln.sorted.bam" ; cat ref6.list | parallel -j 4 "angsd -doFasta 2 -i {}-aln.sorted.bam -out {}-aln -ref ../references/CryUnd_GCA_013389825.fna -doCounts 1"
+
+###########################
+#map reads to CrySou genome ***STILL NEED TO RUN***
+
+for i in `cat ref7.list` ; do bwa mem -aM -t 16 ../references/CrySou_GCA_013389845.fna ~/Tinamous/all_clean_reads/"$i"*_R1_clean.fastq.gz ~/Tinamous/all_clean_reads/"$i"*_R2_clean.fastq.gz > "$i"-aln.sam ; done ; cat ref7.list | parallel -j 3 "samtools view -S -b {}-aln.sam > {}-aln.bam" ; cat ref7.list | parallel -j 3 "samtools sort {}-aln.bam -o {}-aln.sorted.bam" ; cat ref7.list | parallel -j 3 "angsd -doFasta 2 -i {}-aln.sorted.bam -out {}-aln -ref ../references/CrySou_GCA_013389845.fna -doCounts 1"
+
+###########################
+#map reads to CryCin genome
+
+cat ref8.list | parallel -j 1 "bwa mem -aM -t 10 ../references/CryCin_GCA_003342915.fna ~/Tinamous/all_clean_reads/{}_R1_clean.fastq.gz ~/Tinamous/all_clean_reads/{}_R2_clean.fastq.gz > {}-aln.sam" ; cat ref8.list | parallel -j 2 "samtools view -S -b {}-aln.sam > {}-aln.bam" ; cat ref8.list | parallel -j 2 "samtools sort {}-aln.bam -o {}-aln.sorted.bam" ; cat ref8.list | parallel -j 2 "angsd -doFasta 2 -i {}-aln.sorted.bam -out {}-aln -ref ../references/CryCin_GCA_003342915.fna -doCounts 1"
+
+###########################
+#map reads to NotPen genome
+
+cat ref9.list | parallel -j 2 "bwa mem -aM -t 8 ../references/NotPen_GCA_013398315.fna ~/Tinamous/all_clean_reads/{}_R1_clean.fastq.gz ~/Tinamous/all_clean_reads/{}_R2_clean.fastq.gz > {}-aln.sam" ; cat ref9.list | parallel -j 4 "samtools view -S -b {}-aln.sam > {}-aln.bam" ; cat ref9.list | parallel -j 4 "samtools sort {}-aln.bam -o {}-aln.sorted.bam" ; cat ref9.list | parallel -j 4 "angsd -doFasta 2 -i {}-aln.sorted.bam -out {}-aln -ref ../references/NotPen_GCA_013398315.fna -doCounts 1"
+
+
+###########################
+#map reads to NotNig genome *LAST ONE TO DO*
+
+bwa mem -aM -t 8 ../references/Not_nig_GCA_013398345.fna ~/Tinamous/all_clean_reads/Nncad473927_R1_clean.fastq.gz ~/Tinamous/all_clean_reads/Nncad473927_R2_clean.fastq.gz > Nncad473927-aln.sam; samtools view -S -b Nncad473927-aln.sam > Nncad473927-aln.bam; samtools sort Nncad473927-aln.bam -o Nncad473927-aln.sorted.bam; angsd -doFasta 2 -i Nncad473927-aln.sorted.bam -out Nncad473927-aln -ref ../references/Not_nig_GCA_013398345.fna -doCounts 1
+
+###########################
+#Some samples did not assemble on first try, so ran again separately with various references
+
+bwa mem -aM -t 10 ../references/NotOrn_GCA_013398335.fna ~/Tinamous/all_clean_reads/Npnie62872_GATTCGGCTA*R1*.fastq.gz ~/Tinamous/all_clean_reads/Npnie62872_GATTCGGCTA*R2*.fastq.gz > Npnie62872-aln.sam; samtools view -S -b Npnie62872-aln.sam > Npnie62872-aln.bam; samtools sort Npnie62872-aln.bam -o Npnie62872-aln.sorted.bam; angsd -doFasta 2 -i Npnie62872-aln.sorted.bam -out Npnie62872-aln -ref ../references/NotOrn_GCA_013398335.fna -doCounts 1
+
+bwa mem -aM -t 12 ../references/EudEle_GCA_003342815.fna ~/Tinamous/all_clean_reads/Effor12668*R1*.fastq.gz ~/Tinamous/all_clean_reads/Effor12668*R2*.fastq.gz > Effor12668-aln.sam; samtools view -S -b Effor12668-aln.sam > Effor12668-aln.bam; samtools sort Effor12668-aln.bam -o Effor12668-aln.sorted.bam; angsd -doFasta 2 -i Effor12668-aln.sorted.bam -out Effor12668-aln -ref ../references/EudEle_GCA_003342815.fna -doCounts 1
+
+bwa mem -aM -t 12 ../references/TinGut_GCA_000705375.fna ~/Tinamous/all_clean_reads/Ttkle11280*R1*.fastq.gz ~/Tinamous/all_clean_reads/Ttkle11280*R2*.fastq.gz > Ttkle11280-aln.sam; samtools view -S -b Ttkle11280-aln.sam > Ttkle11280-aln.bam; samtools sort Ttkle11280-aln.bam -o Ttkle11280-aln.sorted.bam; angsd -doFasta 2 -i Ttkle11280-aln.sorted.bam -out Ttkle11280-aln -ref ../references/TinGut_GCA_000705375.fna -doCounts 1
+
+
+############################################################
+################# BUSCO ON TINAMOU GENOMES #################
+############################################################
+
+#activate conda envi
+conda activate busco
+
+#cd to busco directory
+cd /home/lmusher/Tinamous/busco
+
+#generate list of genomes:
+cat ../bwa/ref* > Tin_genomes.list
+
+# for-loop to loop through all Tinamou genomes
+
+for i in `cat Tin_genomes.list` ; do busco -i /home/lmusher/Tinamous/bwa/fastas/"$i"-aln.fa -l aves_odb10 -o "$i".OUT -m genome -c 16 --augustus -f; done
+
+############################################################
+################### ALIGNING BUSCO GENES ###################
+############################################################
+#get list of all sample names:
+ls busco/ | grep OUT | sed 's/.OUT//g' > all_genomes.list
+
+#1. make new directory in for species to store alignment copies
+for i in `cat all_genomes.list`; do mkdir "$i".OUT/run_aves_odb10/busco_sequences/single_copy_busco_sequences_edit; done
+
+#2. copy all sequences over to new directory (do this to avoid mistakes on/overwriting originals)
+cat all_genomes.list | parallel -j 16 "cp /home/lmusher/nas2/Tinamous/busco/{}.OUT/run_aves_odb10/busco_sequences/single_copy_busco_sequences/*.fna /home/lmusher/nas2/Tinamous/busco/{}.OUT/run_aves_odb10/busco_sequences/single_copy_busco_sequences_edit"
+
+#3. change all headers in fasta files to include species name
+cat all_genomes.list | parallel -j 24 'sed -i "s/>.*/>{}/g" /home/lmusher/nas2/Tinamous/busco/{}.OUT/run_aves_odb10/busco_sequences/single_copy_busco_sequences_edit/*'
+
+#4. concatenate all files of same locus and mv to new location, ***LEFT OFF HERE***
+
+cd ~/nas2/Tinamous
+
+cat genes.list | parallel -j 24 "cat ./busco/*OUT/run_aves_odb10/busco_sequences/single_copy_busco_sequences_edit/{}.fna > loci-not-aligned/{}.fasta"
+
+#can then get only Nothurinae from those and align:
+for i in `ls loci-not-aligned/*` ; do grep -A 1 -f nothurinae.list loci-not-aligned/"$i" > loci-not-aligned_nothurinae/"$i"; done
+
+#can then get only unstable crypturellus clade from those and align:
+for i in `ls loci-not-aligned/*` ; do grep -A 1 -f cryp.list loci-not-aligned/"$i" > loci-not-aligned_crypturellus/"$i"; done
+
+#3. align each locus using masce
+
+cat genes.list | parallel -j 32 "java -jar ~/array1/programs/macse_v2.06.jar -prog alignSequences -seq ./loci-not-aligned/{}.fasta -out_NT ./alignments/{}-aln.fasta"
+
+#do this again for Nothurinae only
+cat genes.list | parallel -j 32 "java -jar ~/array1/programs/macse_v2.06.jar -prog alignSequences -seq ./loci-not-aligned_nothurinae/{}.fasta -out_NT ./alignments_nothurinae/{}-aln.fasta"
+
+#4. remove '!' from alignments
+mkdir alignments_no_exclamations
+cp alignments/*.fasta alignments_no_exclamations/
+
+sed -i 's/!/-/g' alignments_no_exclamations/*
+
+#again for Nothurinae only
+mkdir alignments_no_exclamations_nothurinae
+cp alignments_nothurinae/*.fasta alignments_no_exclamations_nothurinae/
+
+sed -i 's/!/-/g' alignments_nothurinae_no_exclamations/*
+
+#################################
+###	Totaling 8,299 alignments ###
+#################################
+
+#concatenate all alignments
+
+#remove Cspol20397 and Cspol120397
+#make list of taxa to be removed and name ids.txt
+
+mkdir alignments_no_Cspol
+
+for i in `cat aln.list `; do awk 'BEGIN{while((getline<"ids.txt")>0)l[">"$1]=1}/^>/{f=!l[$1]}f' alignments_no_exclamations/$i > alignments_no_Cspol/"$i"; done
+
+conda activate phyluce-1.7.1
+
+phyluce_align_get_only_loci_with_min_taxa --alignments alignments_no_Cspol/ --taxa 73 --output alignments_50p --percent 0.5 --input-format fasta --log-path log --cores 10
+
+phyluce_align_get_only_loci_with_min_taxa --alignments alignments_no_Cspol/ --taxa 73 --output alignments_75p --percent 0.75 --input-format fasta --log-path log --cores 10
+
+phyluce_align_get_only_loci_with_min_taxa --alignments alignments_no_Cspol/ --taxa 73 --output alignments_95p --percent 0.95 --input-format fasta --log-path log --cores 10
+
+phyluce_align_get_only_loci_with_min_taxa --alignments alignments_no_Cspol/ --taxa 73 --output alignments_complete --percent 1.0 --input-format fasta --log-path log --cores 10
+
+########################################
+###	Totaling 8,032 alignments in 50p ###
+###	Totaling 7,388 alignments in 75p ###
+###	Totaling 5,409 alignments in 95p ###
+###	Totaling 2,507     "      " 100p ###
+########################################
+
+#concatenate the three datasets
+
+phyluce_align_concatenate_alignments --alignments alignments_50p --output CDS_alignments_50p_concatenated --input-format fasta --phylip
+
+phyluce_align_concatenate_alignments --alignments alignments_75p --output CDS_alignments_75p_concatenated --input-format fasta --phylip
+
+phyluce_align_concatenate_alignments --alignments alignments_95p --output CDS_alignments_95p_concatenated --input-format fasta --phylip
+
+phyluce_align_concatenate_alignments --alignments alignments_complete --output CDS_alignments_complete_concatenated --input-format fasta --phylip
+
+#####################################
+###	Totaling 23,002,170 bp in 50p ###
+###	Totaling 21,017,598 bp in 75p ###
+###	Totaling 13,032,819 bp in 95p ###
+###	Totaling 13,032,819 bp comple ###
+#####################################
+
+# use phyluce to keep only files with Rhea pennata
+
+phyluce_align_filter_alignments --alignments alignments_50p --input-format fasta --containing-data-for Rhea_penn --output alignments_50p_Rhea --log-path log
+
+#################################
+###	Totaling 7,457 alignments ###
+#################################
+
+##########################################################
+################# Mitochondrial Genomes ##################
+##########################################################
+
+###########NCBI mtGenomes:
+
+##	CryCin		REF1
+##	CrySou		REF2
+##	CryTat		REF3		Not in WGS downloads
+##	CryUnd		REF4
+##	EudEle		REF5
+##	NotJul		REF6		NOTHOCERCUS
+##	NotNig		REF7		NOTHOCERCUS
+##	NotOrn		REF8		NOTHOPROCTA
+##	NotPen		REF9		NOTHOPROCTA
+##	NotPer		REF10		NOTHOPROCTA
+##	TinGut		REF11
+##	TinMaj		REF12		Not in WGS downloads
+
+#make directory for each sample
+for i in `cat samples.list`; do mkdir $i; done
+
+#run mitoz on each sample in parallel:
+
+cat samples.list | parallel -j 3 "mitoz all --thread_number 8 --workdir ./{} --clade Chordata --genetic_code 2 --species_name '{}' --fq1 /media/lmusher/A3A5-6F40/Tinamous/all_clean_reads/{}_R1* --fq2 /media/lmusher/A3A5-6F40/Tinamous/all_clean_reads/{}_R2* --fastq_read_length 151 --data_size_for_mt_assembly 0.3 --assembler megahit --kmers_megahit 59 79 99 119 141 --memory 50 --requiring_taxa Chordata"
+
+#Get ND2
+for i in `cat samples.list`; do grep -A1 'ND2' "$i"/out.result/out.out.megahit.mitogenome.fa.result/out_out.megahit.mitogenome.fa_mitoscaf.fa.gbf.cds.fasta | sed "s/>.*/>$i/g"; done > ND2.fasta
+
+#Get cytb
+for i in `cat samples.list`; do grep -A1 'CYTB' "$i"/out.result/out.out.megahit.mitogenome.fa.result/out_out.megahit.mitogenome.fa_mitoscaf.fa.gbf.cds.fasta | sed "s/>.*/>$i/g"; done > CYTB.fasta
+
+
+
