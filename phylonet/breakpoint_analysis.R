@@ -1,4 +1,4 @@
-#script adapted from Jorge Doña (University of Illinois Champaign-Urbana)
+##script adapted from Jorge Doña (University of Illinois Champaign-Urbana)
 
 knitr::opts_chunk$set(echo = TRUE)
 require("readxl")
@@ -8,7 +8,7 @@ require("knitr")
 
 #likelihoods pulled from phylonet output log-files
 
-likelihood<-c(-612221.1008,-609081.5674,-591372.2571,-588720.9330807882,-587729.4264,-587873.2769,-580148.2359,-580771.36826, -582384.8279, -580750.6224990899,-578359.019804455)
+likelihood<-c(-613205.7546, -612719.7746, -606942.4648, -604702.3631, -603158.9451158985, -601408.9604, -601310.8391, -599843.1398, -601772.1617, -598549.8285,-600205.1753)
 m<-0:10
 
 data<-data.frame(cbind(m,likelihood))
