@@ -7,7 +7,7 @@ citation("MSCquartets")
 setwd("~/Documents/ANSDU/Tinamous/ASTRAL/")
 
 #read in file with genetrees. These should have complete taxon sampling (no missing taxa in any tree)
-trees<-read.tree("bestML_UCE300_collapsed.trees")
+trees<-read.tree("bestML_UCE1000_collapsed.trees")
 
 #define species to drop from tree
 species<-c("Cuund34614","Cusim651488","Cuyap42937","Cuver35355","AnoDid_GCA_006937325", "Njul32810", "NotJul_GCA_013398735", "Nbbon33138", "Nncad473927", "Not_nig_GCA_013398345", "Tmper40426", "Tmser456416", "Tmmaj20810", "Ttkle11280", "Tsol25977", "Tiosg311159", "TinGut_GCA_000705375", "Tgut85944", "Cttat35476", "CparMNT800", "Coobs25896", "Cocas11195", "Copun86899", "Cooch113498", "Cvar27099", "Cbar42396", "Crcas434024", "Cbre625102", "CsalbGUR081", "CrySou_GCA_013389845", "Csnig6048", "Cssou586295", "Cscap613347", "Cbcos53413", "Crber182233", "Ccin21636", "Cpta650391", "Nbor79764", "Tanan133116AB", "Ndaga68765", "Nomin344282", "Nmnig16884", "Nmann614501", "Nccin2861", "Rrruf13855", "Rhmac145784", "Npnie62872", "NotOrn_GCA_013398335", "NotPen_GCA_013398315", "Ntac27158", "NotPer_GCA_003342845", "Nppen6601", "Nocur425359", "Nobra61359", "Noros645439", "Noorn61422", "Effor12668", "EudEle_GCA_003342815", "Eepat56833", "Eeele16893", "Tpen7597", "Tiing186371", "Rhea_penn_GCA_003342835")
