@@ -1,0 +1,65 @@
+
+================== ASTRAL ===================== 
+
+This is ASTRAL version 5.7.7
+Gene trees are treated as unrooted
+304 trees read from uce1000.ChrZ.75p.trees
+index0
+All output trees will be *arbitrarily* rooted at cbar42396
+
+======== Running the main analysis
+Number of taxa: 80 (80 species)
+Taxa: [cbar42396, cbcos53413, csnig6048, cscap613347, cssou586295, crysou, crysouzanf, csalbgur081, ccgol2213, crycin, crdui419412, cryund, cstr9577, ceery21146, crker147057, ctra66583, cratr320360, crnoc59478, cusim651488, cuyap42937, cuund34614, cuver35355, ccin21636, cpta650391, crber182233, eeele16893, eudele, eepat56833, effor12668, tiing186371, tpen7597, nbor79764, ndaga68765, nomin344282, nmann614501, nmnig16884, notmacmac, tanan133116ab, nccin2861, rhmac145784, rrruf13855, rhyrufpal, nobra61359, noorn61422, noros645439, nocur425359, notorn, npnie62872, notper, ntac27158, rhea_penn, nbbon33138, nncad473927, notnignig, njul32810, notjul, tgut85944, tingut, tiosg311159, tsol25977, ttkle11280, tinmajsat, tmper40426, tmmaj20810, tmser456416, cocas11195, coobs25896, cooch113498, copun86899, cparmnt800, crytatino, cttat35476, cvar27099, crcas434024, cbre625102, anodid, crybou, notnig, nppen6601, notpen]
+Taxon occupancy: {crysou=266, tiing186371=293, nomin344282=303, ccin21636=292, eudele=293, rhyrufpal=265, anodid=240, rrruf13855=301, tiosg311159=282, crker147057=284, ndaga68765=300, notnignig=288, eepat56833=298, cttat35476=280, cuver35355=292, cbre625102=297, crdui419412=294, nccin2861=303, ccgol2213=291, csnig6048=294, noorn61422=297, nmann614501=300, njul32810=302, tmser456416=290, csalbgur081=297, cratr320360=293, cryund=278, copun86899=281, cuund34614=293, cparmnt800=280, ntac27158=303, crnoc59478=277, effor12668=298, tsol25977=284, crcas434024=293, cstr9577=281, tgut85944=293, notorn=295, crysouzanf=252, cuyap42937=293, cssou586295=277, crytatino=236, nbor79764=302, nobra61359=299, nocur425359=302, tmper40426=259, notjul=284, ttkle11280=249, ctra66583=281, cusim651488=293, cocas11195=295, notmacmac=299, nmnig16884=303, nncad473927=287, npnie62872=301, eeele16893=298, notnig=283, ceery21146=293, tingut=248, cbar42396=279, cscap613347=273, notpen=293, tpen7597=294, tanan133116ab=301, rhmac145784=290, cvar27099=279, nbbon33138=295, notper=298, crycin=287, coobs25896=297, crybou=240, cbcos53413=295, cooch113498=299, cpta650391=283, crber182233=297, noros645439=297, rhea_penn=297, tmmaj20810=252, tinmajsat=288, nppen6601=297}
+Number of gene trees: 304
+249 trees have missing taxa
+Calculating quartet distance matrix (for completion of X)
+Species tree distances calculated ...
+Will attempt to complete bipartitions from X before adding using a distance matrix.
+Building set of clusters (X) from gene trees 
+------------------------------
+gradient0: 2061
+Number of Clusters after addition by distance: 2061
+calculating extra bipartitions to be added at level 1 ...
+Adding to X using resolutions of greedy consensus ...
+Limit for sigma of degrees:2050
+polytomy size limit : 4
+discarded polytomies:  [3, 3, 4, 4, 4, 4]
+Threshold 0.0:
+Threshold 0.01:
+Threshold 0.02:
+Threshold 0.05:
+Threshold 0.1:
+polytomy of size 3; rounds with additions with at least 5 support: 0; clusters: 2061
+Threshold 0.2:
+polytomy of size 4; rounds with additions with at least 5 support: 0; clusters: 2061
+polytomy of size 4; rounds with additions with at least 5 support: 0; clusters: 2061
+Threshold 0.3333333333333333:
+polytomy of size 4; rounds with additions with at least 5 support: 0; clusters: 2061
+polytomy of size 4; rounds with additions with at least 5 support: 0; clusters: 2061
+polytomy of size 3; rounds with additions with at least 5 support: 0; clusters: 2061
+max k is :0
+Number of Clusters after addition by greedy: 2061
+gradient0 in heuristiic: 2061
+partitions formed in 2.644 secs
+Dynamic Programming starting after 2.645 secs
+Using tree-based weight calculation.
+Using polytree-based weight calculation.
+Polytree max score: 383113057
+Polytree building time: 0.19 seconds.
+Number of quartet trees in the gene trees: 383113057
+Size of largest cluster: 80
+Greedy score: 377717297
+estimationFactor: 1.0142851811205247
+Sub-optimal score: 377808162
+Total Number of elements weighted: 2820
+Normalized score (portion of input quartet trees satisfied before correcting for multiple individuals): 0.9861591926896921
+Optimization score: 377810463
+Optimal tree inferred in 6.193 secs.
+(njul32810,(notjul,((nbbon33138,(nncad473927,(notnignig,notnig))),(((rhea_penn,anodid),(((tiing186371,tpen7597),(effor12668,(eudele,(eeele16893,eepat56833)))),((nbor79764,(tanan133116ab,(nomin344282,(ndaga68765,(nmann614501,(nmnig16884,notmacmac)))))),((nccin2861,(rhmac145784,(rrruf13855,rhyrufpal))),((npnie62872,(notorn,notpen)),((ntac27158,(notper,nppen6601)),(nocur425359,(nobra61359,(noorn61422,noros645439))))))))),((((tmmaj20810,tmser456416),(tinmajsat,tmper40426)),((tsol25977,ttkle11280),(tiosg311159,(tgut85944,tingut)))),((crber182233,(ccin21636,cpta650391)),(((cparmnt800,(crytatino,cttat35476)),((cooch113498,copun86899),(cocas11195,coobs25896))),((cvar27099,((cbar42396,(crcas434024,cbre625102)),(csalbgur081,(crysou,(crysouzanf,(csnig6048,(cssou586295,(cbcos53413,cscap613347)))))))),((cuyap42937,(cuver35355,(cusim651488,cuund34614))),(crnoc59478,((cratr320360,(ctra66583,(ccgol2213,crycin))),((ceery21146,(crker147057,crybou)),(crdui419412,(cryund,cstr9577))))))))))))));
+Final quartet score is: 377810463
+Final normalized quartet score is: 0.9861591926896921
+Extended species tree:
+(cbar42396,((crcas434024,cbre625102)1:3.3787245258100977,((csalbgur081,(crysou,(crysouzanf,(csnig6048,(cssou586295,(cbcos53413,cscap613347)1:0.6723824369184963)1:0.3981387833313167)1:0.2542002706788317)1:1.408705189147168)1:0.5510086850932236)1:2.7424212253700393,(cvar27099,(((cuyap42937,(cuver35355,(cusim651488,cuund34614)1:0.25371374934379226)1:0.710474364987645)1:3.202229389517605,(crnoc59478,((cratr320360,(ctra66583,(ccgol2213,crycin)1:4.453973792115304)1:0.8875636855469248)0.46:0.03917533204685873,((ceery21146,(crker147057,crybou)1:0.4448830203389081)1:1.1173974607431996,(crdui419412,(cryund,cstr9577)1:0.2974672067150765)1:1.87132934362818)1:0.37332768588113713)1:2.052934873386626)1:2.007181261577414)1:2.807075899873345,(((cparmnt800,(crytatino,cttat35476)1:1.9252908618525777)1:2.9208142850296777,((cooch113498,copun86899)1:2.1580458114817316,(cocas11195,coobs25896)1:0.39090537849080265)1:3.336748052019684)1:2.4197650080555104,((crber182233,(ccin21636,cpta650391)1:0.8100029148332103)1:2.3589179097502666,((((tmmaj20810,tmser456416)1:0.3761684140276535,(tinmajsat,tmper40426)1:0.3704836569021568)1:2.8334747477957785,((tsol25977,ttkle11280)1:2.795351462284185,(tiosg311159,(tgut85944,tingut)1:2.4324338128335348)1:2.7466999081319106)1:2.3407243352416325)1:4.583606008072244,(((rhea_penn,anodid)1:5.030317866166889,(((tiing186371,tpen7597)1:3.1815200383244324,(effor12668,(eudele,(eeele16893,eepat56833)1:0.16896069695273525)1:3.1763162104494036)1:5.28826703069454)1:5.28826703069454,((nbor79764,(tanan133116ab,(nomin344282,(ndaga68765,(nmann614501,(nmnig16884,notmacmac)1:0.37102018069254833)1:1.927781054057259)1:0.26210694230030823)1:4.8859604324019505)1:1.2218623690767116)1:5.007296392830701,((nccin2861,(rhmac145784,(rrruf13855,rhyrufpal)1:1.466337068793427)1:3.650600519570155)1:1.5399940119206466,((npnie62872,(notorn,notpen)1:0.2038666928599742)1:4.51028050174693,((ntac27158,(notper,nppen6601)1:1.2660081952453883)1:3.7009162437320193,(nocur425359,(nobra61359,(noorn61422,noros645439)1:0.8462493067008431)1:3.3135440874578035)1:3.6378763175504445)1:0.7230186480113986)1:2.0123180691714326)1:3.4037995195931288)1:5.05108217765665)1:1.089345369841408)1:2.7176756768249755,((nbbon33138,(nncad473927,(notnignig,notnig)1:0.2961272182325226)1:3.259926364698558)1:4.550361949493098,(notjul,njul32810)1:3.2243598186293263)1:3.5016687210967707)1:5.064786460636514)1:3.633085680142407)1:2.650614059757674)1:2.508199742970857)1:2.74047383883898)1:0.16338673734599862)1:2.2996574790614894));
+Weight calculation took 3.208310717 secs
+ASTRAL finished in 7.541 secs

@@ -1,0 +1,54 @@
+
+================== ASTRAL ===================== 
+
+This is ASTRAL version 5.7.7
+Gene trees are treated as unrooted
+7414 trees read from cds.75p.trees
+index0
+All output trees will be *arbitrarily* rooted at cbar42396
+
+======== Running the main analysis
+Number of taxa: 80 (80 species)
+Taxa: [cbar42396, cbcos53413, cscap613347, csnig6048, cssou586295, crysouzanf, crysou, csalbgur081, ccgol2213, ceery21146, crdui419412, cryund, crker147057, cstr9577, crycin, crybou, cratr320360, ctra66583, crnoc59478, cusim651488, cuver35355, cuund34614, cuyap42937, cparmnt800, crytatino, cttat35476, cocas11195, coobs25896, cooch113498, copun86899, ccin21636, crber182233, cpta650391, eeele16893, eepat56833, eudele, effor12668, tiing186371, tpen7597, nbor79764, ndaga68765, nomin344282, nmann614501, notmacmac, nmnig16884, tanan133116ab, nccin2861, nobra61359, noorn61422, noros645439, nocur425359, notper, ntac27158, nppen6601, notorn, notpen, npnie62872, rhmac145784, rhyrufpal, rrruf13855, nbbon33138, nncad473927, notnignig, notnig, njul32810, notjul, tgut85944, tingut, tiosg311159, tsol25977, ttkle11280, tinmajsat, tmper40426, tmmaj20810, tmser456416, cvar27099, cbre625102, crcas434024, anodid, rhea_penn]
+Taxon occupancy: {crysou=7082, tiing186371=7072, nomin344282=7220, ccin21636=7270, eudele=7066, rhyrufpal=7194, anodid=4896, rrruf13855=7326, tiosg311159=6675, crker147057=6945, ndaga68765=7254, notnignig=7109, eepat56833=7305, cttat35476=7310, cuver35355=7277, cbre625102=7358, crdui419412=7332, nccin2861=7327, ccgol2213=7309, csnig6048=7351, noorn61422=7281, nmann614501=7246, njul32810=7082, tmser456416=6729, csalbgur081=7345, cratr320360=7341, cryund=6701, copun86899=7331, cuund34614=7285, cparmnt800=7321, ntac27158=7320, crnoc59478=7314, effor12668=7307, tsol25977=6725, crcas434024=7320, cstr9577=7335, tgut85944=6749, notorn=7026, crysouzanf=7112, cuyap42937=7280, cssou586295=7341, crytatino=7210, nbor79764=7258, nobra61359=7277, nocur425359=7327, tmper40426=5484, notjul=6881, ttkle11280=6709, ctra66583=7352, cusim651488=7280, cocas11195=7322, notmacmac=7099, nmnig16884=7251, nncad473927=7131, npnie62872=7283, eeele16893=7312, notnig=6786, ceery21146=7245, tingut=6396, cbar42396=7336, cscap613347=7351, notpen=6977, tpen7597=7217, tanan133116ab=7242, rhmac145784=7111, cvar27099=7345, nbbon33138=7197, notper=7076, crycin=6965, crybou=6342, coobs25896=7334, cbcos53413=7356, cooch113498=7343, cpta650391=7313, crber182233=7303, noros645439=7274, tmmaj20810=6610, rhea_penn=6962, tinmajsat=7248, nppen6601=7272}
+Number of gene trees: 7414
+5140 trees have missing taxa
+Calculating quartet distance matrix (for completion of X)
+Species tree distances calculated ...
+Will attempt to complete bipartitions from X before adding using a distance matrix.
+Building set of clusters (X) from gene trees 
+------------------------------
+gradient0: 54067
+Number of Clusters after addition by distance: 54067
+calculating extra bipartitions to be added at level 1 ...
+Adding to X using resolutions of greedy consensus ...
+Limit for sigma of degrees:2050
+polytomy size limit : 7
+discarded polytomies:  [3, 3, 3, 4, 4, 7]
+Threshold 0.0:
+Threshold 0.01:
+Threshold 0.02:
+Threshold 0.05:
+Threshold 0.1:
+polytomy of size 3; rounds with additions with at least 5 support: 0; clusters: 54067
+Threshold 0.2:
+polytomy of size 4; rounds with additions with at least 5 support: 0; clusters: 54067
+Threshold 0.3333333333333333:
+polytomy of size 4; rounds with additions with at least 5 support: 0; clusters: 54067
+polytomy of size 7; rounds with additions with at least 5 support: 0; clusters: 54067
+polytomy of size 3; rounds with additions with at least 5 support: 0; clusters: 54067
+polytomy of size 3; rounds with additions with at least 5 support: 0; clusters: 54067
+max k is :0
+Number of Clusters after addition by greedy: 54067
+gradient0 in heuristiic: 54067
+partitions formed in 41.479 secs
+Dynamic Programming starting after 41.479 secs
+Using tree-based weight calculation.
+Using polytree-based weight calculation.
+Polytree max score: 10076972250
+Polytree building time: 27.758 seconds.
+Number of quartet trees in the gene trees: 10076972250
+Size of largest cluster: 80
+Greedy score: 8674560710
+estimationFactor: 1.1616694593402643
+Sub-optimal score: 9204635528

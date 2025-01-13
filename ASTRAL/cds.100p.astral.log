@@ -1,0 +1,67 @@
+
+================== ASTRAL ===================== 
+
+This is ASTRAL version 5.7.7
+Gene trees are treated as unrooted
+2274 trees read from cds.100p.trees
+index0
+All output trees will be *arbitrarily* rooted at anodid
+
+======== Running the main analysis
+Number of taxa: 80 (80 species)
+Taxa: [anodid, cbar42396, cbre625102, crcas434024, cvar27099, cbcos53413, csnig6048, cscap613347, cssou586295, crysouzanf, crysou, csalbgur081, ccgol2213, crycin, ceery21146, crker147057, crybou, crdui419412, cryund, cstr9577, ctra66583, cratr320360, crnoc59478, cusim651488, cuver35355, cuyap42937, cuund34614, cocas11195, coobs25896, cooch113498, copun86899, cparmnt800, crytatino, cttat35476, ccin21636, cpta650391, crber182233, nbbon33138, nncad473927, notnignig, notnig, njul32810, notjul, tgut85944, tingut, tiosg311159, tsol25977, ttkle11280, tinmajsat, tmmaj20810, tmper40426, tmser456416, eeele16893, eudele, eepat56833, effor12668, tiing186371, tpen7597, nbor79764, ndaga68765, nmann614501, nmnig16884, notmacmac, nomin344282, tanan133116ab, nccin2861, rhmac145784, rhyrufpal, rrruf13855, nobra61359, noorn61422, noros645439, nocur425359, notper, nppen6601, ntac27158, notorn, notpen, npnie62872, rhea_penn]
+Taxon occupancy: {crysou=2274, tiing186371=2274, nomin344282=2274, ccin21636=2274, eudele=2274, anodid=2274, rhyrufpal=2274, tiosg311159=2274, rrruf13855=2274, crker147057=2274, ndaga68765=2274, notnignig=2274, eepat56833=2274, cttat35476=2274, cuver35355=2274, cbre625102=2274, crdui419412=2274, nccin2861=2274, ccgol2213=2274, csnig6048=2274, noorn61422=2274, nmann614501=2274, njul32810=2274, tmser456416=2274, csalbgur081=2274, cratr320360=2274, cryund=2274, copun86899=2274, cuund34614=2274, cparmnt800=2274, ntac27158=2274, crnoc59478=2274, effor12668=2274, tsol25977=2274, crcas434024=2274, cstr9577=2274, tgut85944=2274, notorn=2274, crysouzanf=2274, cuyap42937=2274, cssou586295=2274, crytatino=2274, nbor79764=2274, nobra61359=2274, nocur425359=2274, tmper40426=2274, notjul=2274, ttkle11280=2274, ctra66583=2274, cusim651488=2274, cocas11195=2274, notmacmac=2274, nncad473927=2274, nmnig16884=2274, npnie62872=2274, eeele16893=2274, notnig=2274, ceery21146=2274, tingut=2274, cbar42396=2274, cscap613347=2274, notpen=2274, tpen7597=2274, tanan133116ab=2274, rhmac145784=2274, cvar27099=2274, nbbon33138=2274, notper=2274, crycin=2274, crybou=2274, coobs25896=2274, cbcos53413=2274, cooch113498=2274, cpta650391=2274, crber182233=2274, noros645439=2274, tmmaj20810=2274, rhea_penn=2274, tinmajsat=2274, nppen6601=2274}
+Number of gene trees: 2274
+0 trees have missing taxa
+Calculating quartet distance matrix (for completion of X)
+Species tree distances calculated ...
+Building set of clusters (X) from gene trees 
+------------------------------
+gradient0: 21161
+Number of Clusters after addition by distance: 21161
+calculating extra bipartitions to be added at level 1 ...
+Adding to X using resolutions of greedy consensus ...
+Limit for sigma of degrees:2050
+polytomy size limit : 6
+discarded polytomies:  [3, 3, 3, 3, 4, 4, 4, 6]
+Threshold 0.0:
+Threshold 0.01:
+Threshold 0.02:
+Threshold 0.05:
+Threshold 0.1:
+polytomy of size 3; rounds with additions with at least 5 support: 0; clusters: 21161
+Threshold 0.2:
+polytomy of size 4; rounds with additions with at least 5 support: 0; clusters: 21161
+Threshold 0.3333333333333333:
+polytomy of size 4; rounds with additions with at least 5 support: 0; clusters: 21161
+polytomy of size 4; rounds with additions with at least 5 support: 0; clusters: 21161
+polytomy of size 3; rounds with additions with at least 5 support: 0; clusters: 21161
+polytomy of size 6; rounds with additions with at least 5 support: 0; clusters: 21161
+polytomy of size 3; rounds with additions with at least 5 support: 0; clusters: 21161
+polytomy of size 3; rounds with additions with at least 5 support: 0; clusters: 21161
+max k is :0
+Number of Clusters after addition by greedy: 21161
+gradient0 in heuristiic: 21161
+partitions formed in 17.775 secs
+Dynamic Programming starting after 17.775 secs
+Using tree-based weight calculation.
+Using polytree-based weight calculation.
+Polytree max score: 3596512920
+Polytree building time: 15.255 seconds.
+Number of quartet trees in the gene trees: 3596512920
+Size of largest cluster: 80
+Greedy score: 3150971285
+estimationFactor: 1.1413981895426888
+Sub-optimal score: 3305404351
+Calculated 100000 weights; time (seconds): 175
+Total Number of elements weighted: 119542
+Normalized score (portion of input quartet trees satisfied before correcting for multiple individuals): 0.9250899126479435
+Optimization score: 3327097823
+Optimal tree inferred in 209.459 secs.
+(nobra61359,((noorn61422,noros645439),(nocur425359,((ntac27158,(notper,nppen6601)),((notpen,(notorn,npnie62872)),((nccin2861,(rhmac145784,(rhyrufpal,rrruf13855))),((nbor79764,(tanan133116ab,(ndaga68765,(nomin344282,(notmacmac,(nmann614501,nmnig16884)))))),(((tiing186371,tpen7597),(effor12668,(eepat56833,(eeele16893,eudele)))),((anodid,rhea_penn),(((njul32810,notjul),(nbbon33138,(notnig,(nncad473927,notnignig)))),(((tinmajsat,(tmper40426,(tmmaj20810,tmser456416))),((tsol25977,ttkle11280),(tiosg311159,(tgut85944,tingut)))),((crber182233,(ccin21636,cpta650391)),(((cparmnt800,(crytatino,cttat35476)),((cocas11195,coobs25896),(cooch113498,copun86899))),((cvar27099,((cbar42396,(cbre625102,crcas434024)),(csalbgur081,(crysou,(crysouzanf,(csnig6048,(cssou586295,(cbcos53413,cscap613347)))))))),((cuyap42937,(cuund34614,(cusim651488,cuver35355))),(crnoc59478,((ctra66583,(ccgol2213,crycin)),((ceery21146,(crker147057,crybou)),(cratr320360,(crdui419412,(cryund,cstr9577)))))))))))))))))))));
+Final quartet score is: 3327097823
+Final normalized quartet score is: 0.9250899126479435
+Extended species tree:
+(anodid,(rhea_penn,((((njul32810,notjul)1:2.222489840494621,(nbbon33138,(notnig,(nncad473927,notnignig)1:0.1645239772410492)1:1.1127854183143717)1:1.8918276089396808)1:3.3419798077180674,(((tinmajsat,(tmper40426,(tmmaj20810,tmser456416)1:0.16276913079357866)1:0.09169396736904838)1:1.2358046517869996,((tsol25977,ttkle11280)1:2.1024020288922545,(tiosg311159,(tgut85944,tingut)1:1.1452758445438571)1:0.7150557600814066)1:0.7218320419388399)1:3.4138087538720563,((crber182233,(ccin21636,cpta650391)1:0.46502332998564777)1:2.5446346729426312,(((cparmnt800,(crytatino,cttat35476)1:1.332448597072092)1:2.234087602354417,((cocas11195,coobs25896)1:0.1885985904184717,(cooch113498,copun86899)1:2.0261831464013773)1:2.1351130732367096)1:1.3857526111644256,((cvar27099,((cbar42396,(cbre625102,crcas434024)1:1.1243671178438999)1:1.0300666129196476,(csalbgur081,(crysou,(crysouzanf,(csnig6048,(cssou586295,(cbcos53413,cscap613347)1:0.3054383291733031)1:0.1938925814072139)1:0.1534398214358525)1:0.5379880569455663)1:0.37400932676754967)1:1.8117955931702077)1:0.3044946665860811)1:1.4706606878925956,((cuyap42937,(cuund34614,(cusim651488,cuver35355)1:0.26157793177859173)1:0.5064108603450123)1:2.273771902481596,(crnoc59478,((ctra66583,(ccgol2213,crycin)1:1.0605751587241936)1:0.4507779265143324,((ceery21146,(crker147057,crybou)1:0.14718201051116486)1:0.3950835742842446,(cratr320360,(crdui419412,(cryund,cstr9577)1:0.16601903272545104)1:0.6534872258973923)1:0.08782349761911128)1:0.08436552968335198)1:0.5241016920162334)1:0.6242437805310683)1:1.3121368221580503)1:0.717235827746288)1:1.742055722843866)1:2.352528769355788)1:1.473198418243935)1:0.6524359396967304,(((tiing186371,tpen7597)1:3.0896742184495722,(effor12668,(eepat56833,(eeele16893,eudele)0.98:0.038808182300363044)1:1.1888762285469263)1:3.3518133932472485)1:3.4165263513103814,((nbor79764,(tanan133116ab,(ndaga68765,(nomin344282,(notmacmac,(nmann614501,nmnig16884)1:0.06908258172294965)1:0.69259788090318)1:0.12176126801)1:2.9011243409695333)1:0.7573203913428054)1:1.9333630073192114,((nccin2861,(rhmac145784,(rhyrufpal,rrruf13855)1:1.0883582059115102)1:1.790360794850653)1:0.667029043573718,((notpen,(notorn,npnie62872)1:0.07075388618831055)1:2.650021455189385,((ntac27158,(notper,nppen6601)1:0.7418134762775155)1:1.1528914095514529,(nocur425359,((noorn61422,noros645439)1:0.1855475338879301,nobra61359)1:2.005215423981411)1:1.1338175910186679)1:0.23030413506077083)1:0.7290322140566936)1:1.100872297393921)1:3.7650533876662076)1:0.3718533835731376)1:2.5226390219574384));
+Weight calculation took 166.26860549 secs
+ASTRAL finished in 216.156 secs
