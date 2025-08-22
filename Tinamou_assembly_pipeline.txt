@@ -9,12 +9,12 @@
 ##	Required software
 ##		1. busco v5
 ##		2. phyluce v1.7.1
-##		3. MACSE codon-aware alignment software
+##		3. MAFFT
 ##		4. bwa
 ##		5. angsd
 ##		6. samtools
 ##		7. parallel
-##		8. mitoz
+##		8. https://github.com/simonhmartin/genomics_general#trees-for-sliding-windows
 
 ##########################################################
 ################Reference Genome Map Info#################
@@ -220,7 +220,6 @@ cat ref8.list | parallel -j 1 "bwa mem -aM -t 10 ../references/CryCin_GCA_003342
 
 cat ref9.list | parallel -j 2 "bwa mem -aM -t 8 ../references/NotPen_GCA_013398315.fna ~/Tinamous/all_clean_reads/{}_R1_clean.fastq.gz ~/Tinamous/all_clean_reads/{}_R2_clean.fastq.gz > {}-aln.sam" ; cat ref9.list | parallel -j 4 "samtools view -S -b {}-aln.sam > {}-aln.bam" ; cat ref9.list | parallel -j 4 "samtools sort {}-aln.bam -o {}-aln.sorted.bam" ; cat ref9.list | parallel -j 4 "angsd -doFasta 2 -i {}-aln.sorted.bam -out {}-aln -ref ../references/NotPen_GCA_013398315.fna -doCounts 1"
 
-
 ###########################
 #map reads to NotNig genome *LAST ONE TO DO*
 
@@ -235,8 +234,11 @@ bwa mem -aM -t 12 ../references/EudEle_GCA_003342815.fna ~/Tinamous/all_clean_re
 
 bwa mem -aM -t 12 ../references/TinGut_GCA_000705375.fna ~/Tinamous/all_clean_reads/Ttkle11280*R1*.fastq.gz ~/Tinamous/all_clean_reads/Ttkle11280*R2*.fastq.gz > Ttkle11280-aln.sam; samtools view -S -b Ttkle11280-aln.sam > Ttkle11280-aln.bam; samtools sort Ttkle11280-aln.bam -o Ttkle11280-aln.sorted.bam; angsd -doFasta 2 -i Ttkle11280-aln.sorted.bam -out Ttkle11280-aln -ref ../references/TinGut_GCA_000705375.fna -doCounts 1
 
+#Calculate mean and standard deviation of coverage for all samples:
 
+samtools depth <sorted bam file>  |  awk '{sum+=$3; sumsq+=$3*$3} END { print "Average = ",sum/NR; print "Stdev = ",sqrt(sumsq/NR - (sum/NR)**2)}'fb
 ############################################################
+
 ################# BUSCO ON TINAMOU GENOMES #################
 ############################################################
 
@@ -257,28 +259,22 @@ for i in `cat Tin_genomes.list` ; do busco -i /home/lmusher/Tinamous/bwa/fastas/
 ################### ALIGNING BUSCO GENES ###################
 ############################################################
 #get list of all sample names:
-ls busco/ | grep OUT | sed 's/.OUT//g' > all_genomes.list
+ls busco/ | grep OUT | sed 's/.out//g' > all_genomes.list
 
 #1. make new directory in for species to store alignment copies
 for i in `cat all_genomes.list`; do mkdir "$i".OUT/run_aves_odb10/busco_sequences/single_copy_busco_sequences_edit; done
 
 #2. copy all sequences over to new directory (do this to avoid mistakes on/overwriting originals)
-cat all_genomes.list | parallel -j 16 "cp /home/lmusher/nas2/Tinamous/busco/{}.OUT/run_aves_odb10/busco_sequences/single_copy_busco_sequences/*.fna /home/lmusher/nas2/Tinamous/busco/{}.OUT/run_aves_odb10/busco_sequences/single_copy_busco_sequences_edit"
+cat all_genomes.list | parallel -j 24 "cp /home/lmusher/nas2/Tinamous/busco/{}.out/run_aves_odb10/busco_sequences/single_copy_busco_sequences/*.fna /home/lmusher/nas2/Tinamous/busco/{}.out/run_aves_odb10/busco_sequences/single_copy_busco_sequences_edit"
 
 #3. change all headers in fasta files to include species name
-cat all_genomes.list | parallel -j 24 'sed -i "s/>.*/>{}/g" /home/lmusher/nas2/Tinamous/busco/{}.OUT/run_aves_odb10/busco_sequences/single_copy_busco_sequences_edit/*'
+cat all_genomes.list | parallel -j 24 'sed -i "s/>.*/>{}/g" /home/lmusher/nas2/Tinamous/busco/{}.out/run_aves_odb10/busco_sequences/single_copy_busco_sequences_edit/*'
 
 #4. concatenate all files of same locus and mv to new location, ***LEFT OFF HERE***
 
 cd ~/nas2/Tinamous
 
-cat genes.list | parallel -j 24 "cat ./busco/*OUT/run_aves_odb10/busco_sequences/single_copy_busco_sequences_edit/{}.fna > loci-not-aligned/{}.fasta"
-
-#can then get only Nothurinae from those and align:
-for i in `ls loci-not-aligned/*` ; do grep -A 1 -f nothurinae.list loci-not-aligned/"$i" > loci-not-aligned_nothurinae/"$i"; done
-
-#can then get only unstable crypturellus clade from those and align:
-for i in `ls loci-not-aligned/*` ; do grep -A 1 -f cryp.list loci-not-aligned/"$i" > loci-not-aligned_crypturellus/"$i"; done
+cat genes.list | parallel -j 24 "cat ./busco/*out/run_aves_odb10/busco_sequences/single_copy_busco_sequences_edit/{}.fna > loci-not-aligned/{}.fasta"
 
 #3. align each locus using masce
 
@@ -350,41 +346,50 @@ phyluce_align_concatenate_alignments --alignments alignments_complete --output C
 
 phyluce_align_filter_alignments --alignments alignments_50p --input-format fasta --containing-data-for Rhea_penn --output alignments_50p_Rhea --log-path log
 
-#################################
-###	Totaling 7,457 alignments ###
-#################################
-
 ##########################################################
-################# Mitochondrial Genomes ##################
+############### Introgression Statistics  ################
 ##########################################################
 
-###########NCBI mtGenomes:
+#variant calling from 
 
-##	CryCin		REF1
-##	CrySou		REF2
-##	CryTat		REF3		Not in WGS downloads
-##	CryUnd		REF4
-##	EudEle		REF5
-##	NotJul		REF6		NOTHOCERCUS
-##	NotNig		REF7		NOTHOCERCUS
-##	NotOrn		REF8		NOTHOPROCTA
-##	NotPen		REF9		NOTHOPROCTA
-##	NotPer		REF10		NOTHOPROCTA
-##	TinGut		REF11
-##	TinMaj		REF12		Not in WGS downloads
+for i in `cat taxa.list`; do bcftools mpileup -a AD,DP,SP -Ou -f Cuund34614.ragtag.fasta ./"$i"-aln.sorted.bam | bcftools call -f GQ,GP -mO z -o "$i".vcf.gz; done
 
-#make directory for each sample
-for i in `cat samples.list`; do mkdir $i; done
+bcftools index *vcf.gz
 
-#run mitoz on each sample in parallel:
+bcftools merge Ceery21146.vcf.gz Cratr320360.vcf.gz Crdui419412.vcf.gz Crker147057.vcf.gz Crnoc59478.vcf.gz CryBou.vcf.gz Cstr9577.vcf.gz Ctra66583.vcf.gz Cuund34614.vcf.gz Ccgol2213.vcf.gz Cvar27099.vcf.gz -Oz -o Crypturellus.cladeA.vcf.gz
 
-cat samples.list | parallel -j 3 "mitoz all --thread_number 8 --workdir ./{} --clade Chordata --genetic_code 2 --species_name '{}' --fq1 /media/lmusher/A3A5-6F40/Tinamous/all_clean_reads/{}_R1* --fq2 /media/lmusher/A3A5-6F40/Tinamous/all_clean_reads/{}_R2* --fastq_read_length 151 --data_size_for_mt_assembly 0.3 --assembler megahit --kmers_megahit 59 79 99 119 141 --memory 50 --requiring_taxa Chordata"
+bcftools index Crypturellus.cladeA.vcf.gz
 
-#Get ND2
-for i in `cat samples.list`; do grep -A1 'ND2' "$i"/out.result/out.out.megahit.mitogenome.fa.result/out_out.megahit.mitogenome.fa_mitoscaf.fa.gbf.cds.fasta | sed "s/>.*/>$i/g"; done > ND2.fasta
+#give samples new names
+bcftools query -l Crypturellus.cladeA.vcf.gz > names.txt #manually edit text file to include space plus new name after previous names
 
-#Get cytb
-for i in `cat samples.list`; do grep -A1 'CYTB' "$i"/out.result/out.out.megahit.mitogenome.fa.result/out_out.megahit.mitogenome.fa_mitoscaf.fa.gbf.cds.fasta | sed "s/>.*/>$i/g"; done > CYTB.fasta
+bcftools reheader -s names.txt --threads 12 -o Crypturellus.cladeA.renamed.vcf.gz Crypturellus.cladeA.vcf.gz
 
+#generate filtered vcf
+VCF_IN=/home/lmusher/Tinamous/cladeA_clean_reads/Crypturellus.cladeA.renamed.vcf.gz
+VCF_OUT=/home/lmusher/Tinamous/cladeA_clean_reads/Crypturellus.cladeA.filtered.vcf.gz
 
+# set filters
+MAF=0.05
+MISS=0.75
+QUAL=30
+MIN_DEPTH=10
+MAX_DEPTH=100
 
+vcftools --gzvcf $VCF_IN --remove-indels --maf $MAF --max-missing $MISS --minQ $QUAL --min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH --minDP $MIN_DEPTH --maxDP $MAX_DEPTH --recode --stdout | bgzip -c > $VCF_OUT
+
+### use simon martin scripts (https://github.com/simonhmartin/genomics_general#trees-for-sliding-windows) to estimate genome wide introgression
+
+#first convert vcf to ".geno"
+python ~/programs/genomics_general/VCF_processing/parseVCF.py -i Crypturellus.cladeA.filtered.vcf.gz --skipIndels --minQual 30 --gtf flag=DP min=5 | bgzip > Crypturellus.cladeA.filtered.geno.gz
+
+#Run the ABBA-BABA and introgression stats
+
+#Assume T1
+python ~/programs/genomics_general/ABBABABAwindows.py -g Crypturellus.cladeA.filtered.geno.gz -f phased -o ABBABABAwindows.w100k.T1.csv -w 100000 -m 100 -s 100000 -P1 A Cstr9577 Crdui419412 Ceery21146 CryBou Crker147057 -P2 B Cratr320360 -P3 C Ctra66583 Ccgol2213 -O D Cuund34614 --minData 0.5 --writeFailedWindows -T 12
+
+#Assume T2
+python ~/programs/genomics_general/ABBABABAwindows.py -g Crypturellus.cladeA.filtered.geno.gz -f phased -o ABBABABAwindows.w100k.T2.csv -w 100000 -m 100 -s 100000 -P1 A Cstr9577  Crdui419412  Ceery21146  CryBou  Crker147057  -P3 B Cratr320360  -P2 C Ctra66583  Ccgol2213  -O D Cuund34614  --minData 0.5 --writeFailedWindows -T 12
+
+#Assume T3
+python ~/programs/genomics_general/ABBABABAwindows.py -g Crypturellus.cladeA.filtered.geno.gz -f phased -o ABBABABAwindows.w100k.T3.csv -w 100000 -m 100 -s 100000 -P2 A Cstr9577  Crdui419412  -P1 B Ceery21146  CryBou  Crker147057  -P3 C Cratr320360   -O D Cuund34614  --minData 0.5 --writeFailedWindows -T 12

@@ -792,6 +792,7 @@ kruskal.test(rf.distance.coll~chrom,data=df.uce1000)
 # 
 # data:  rf.distance.coll by chrom
 # Kruskal-Wallis chi-squared = 26.645, df = 1, p-value = 2.445e-07
+fligner.test(rf.distance.coll~chrom,data=df.uce1000)
 
 kruskal.test(rf.distance.coll~chrom,data=df.uce300)
 
@@ -1082,6 +1083,36 @@ ggplot(support.tab, aes(Tree, Metric, fill= as.numeric(Value2))) +
   ggtitle(label = "Species Tree Support for Crypt. Clade A")
 dev.off()
 
+###only plot trees/datasets for main text
+
+filt.tree<-factor(c("uce.100.iqt","uce.100.ast","uce.300.iqt","uce.300.ast","uce.100.iqt.75","uce.100.ast.75","uce.300.iqt.75","uce.300.ast.75"))
+support.tab2<-support.tab[!(support.tab$Tree%in%filt.tree),]
+
+a<-(support.tab2$Value[support.tab2$Metric=="Bootstrap/PP"]-min(support.tab2$Value[support.tab2$Metric=="Bootstrap/PP"]))/(max(support.tab2$Value[support.tab2$Metric=="Bootstrap/PP"])-min(support.tab2$Value[support.tab2$Metric=="Bootstrap/PP"]))*100
+b<-(support.tab2$Value[support.tab2$Metric=="gCF"]-min(support.tab2$Value[support.tab2$Metric=="gCF"]))/(max(support.tab2$Value[support.tab2$Metric=="gCF"])-min(support.tab2$Value[support.tab2$Metric=="gCF"]))*100
+c<-100-(support.tab2$Value[support.tab2$Metric=="100-rf.t1"]-min(support.tab2$Value[support.tab2$Metric=="100-rf.t1"]))/(max(support.tab2$Value[support.tab2$Metric=="100-rf.t1"])-min(support.tab2$Value[support.tab2$Metric=="100-rf.t1"]))*100
+d<-100-(support.tab2$Value[support.tab2$Metric=="100-rf.t2"]-min(support.tab2$Value[support.tab2$Metric=="100-rf.t2"]))/(max(support.tab2$Value[support.tab2$Metric=="100-rf.t2"])-min(support.tab2$Value[support.tab2$Metric=="100-rf.t2"]))*100
+e<-(support.tab2$Value[support.tab2$Metric=="gCF.cladeA"]-min(support.tab2$Value[support.tab2$Metric=="gCF.cladeA"]))/(max(support.tab2$Value[support.tab2$Metric=="gCF.cladeA"])-min(support.tab2$Value[support.tab2$Metric=="gCF.cladeA"]))*100
+f<-(support.tab2$Value[support.tab2$Metric=="Bootstrap/PP.cladeA"]-min(support.tab2$Value[support.tab2$Metric=="Bootstrap/PP.cladeA"]))/(max(support.tab2$Value[support.tab2$Metric=="Bootstrap/PP.cladeA"])-min(support.tab2$Value[support.tab2$Metric=="Bootstrap/PP.cladeA"]))*100
+Value2<-round(c(a,b,c,d,e,f),digits=0)
+support.tab2$Value2<-Value2
+
+
+pdf(file = "../Figs_August2025/heatmap.pdf", width = 16, height = 4)
+ggplot(support.tab2, aes(Tree, Metric, fill= as.numeric(Value2))) + 
+  geom_tile() +
+  scale_fill_gradient2(low = "steelblue3", high = "tomato3" , 
+                       midpoint = max(support.tab$Value2)/2, limit = c(min(support.tab$Value2),max(support.tab$Value2)), space = "Lab", 
+                       name="normalized score") +
+  theme_minimal()+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, 
+                                   size = 12, hjust = 1))+
+  coord_fixed()+xlab("") + ylab("")+ 
+  geom_text(aes(Tree, Metric, label = Value), color = "black", size = 3) +
+  
+  ggtitle(label = "Species Tree Support for Crypt. Clade A")
+dev.off()
+
 ###compare node heights from Z and Autosomes
 
 setwd("~/Documents/ANSDU/Tinamous/ASTRAL/")
@@ -1116,7 +1147,7 @@ df.hts$hts<-as.numeric(df.hts$hts)
 df.hts$chrom<-factor(df.hts$chrom,levels = c("autosome","Z-chrom"))
 
 
-pdf(file = "../figs_30Oct24//TreeHeights.pdf", width = 7, height = 7)
+pdf(file = "../figs_30Oct24/TreeHeights.pdf", width = 7, height = 7)
 bp.hts<-ggplot(df.hts, aes(x=chrom, y=hts)) + 
   geom_boxplot(outliers = F)+ggtitle("Tree heights by chromosome type")+
   theme_bw() + xlab("") + ylab("Tree height (subst. per site)")
