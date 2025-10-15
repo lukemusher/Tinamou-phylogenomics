@@ -391,5 +391,5 @@ python ~/programs/genomics_general/ABBABABAwindows.py -g Crypturellus.cladeA.fil
 #Assume T2
 python ~/programs/genomics_general/ABBABABAwindows.py -g Crypturellus.cladeA.filtered.geno.gz -f phased -o ABBABABAwindows.w100k.T2.csv -w 100000 -m 100 -s 100000 -P1 A Cstr9577  Crdui419412  Ceery21146  CryBou  Crker147057  -P3 B Cratr320360  -P2 C Ctra66583  Ccgol2213  -O D Cuund34614  --minData 0.5 --writeFailedWindows -T 12
 
-#Assume T3
-python ~/programs/genomics_general/ABBABABAwindows.py -g Crypturellus.cladeA.filtered.geno.gz -f phased -o ABBABABAwindows.w100k.T3.csv -w 100000 -m 100 -s 100000 -P2 A Cstr9577  Crdui419412  -P1 B Ceery21146  CryBou  Crker147057  -P3 C Cratr320360   -O D Cuund34614  --minData 0.5 --writeFailedWindows -T 12
+#Assume T4
+python ~/programs/genomics_general/ABBABABAwindows.py -g Crypturellus.cladeA.filtered.geno.gz -f phased -o ABBABABAwindows.w100k.T3.csv -w 100000 -m 100 -s 100000 -P2 A Cstr9577  Crdui419412  -P1 B Cratr320360  -P3 C C Ctra66583  Ccgol2213   -O D Cuund34614  --minData 0.5 --writeFailedWindows -T 12

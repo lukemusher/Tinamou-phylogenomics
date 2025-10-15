@@ -13,7 +13,7 @@ library(FSA)
 
 #standard error function
 
-se<-funtion(x){
+se<-function(x){
   std.err<-sd(x)/sqrt(length(x))
   print(std.err)
 }
@@ -21,12 +21,12 @@ se<-funtion(x){
 data1 <- read_csv("ABBABABAwindows.w100k.T1.csv")
 names(data1)
 data1$scaffold<-factor(data1$scaffold,levels = 
-              c("1","2","3","4","5","6","7",
-                "8","9","10","11","12","13","14",
-                "15","16","17","18","19","20","21",
-                "22","23","24","25","26","27","28",
-                "29","30","31","32","33","34","35",
-                "36","37","38","39","40"))
+                         c("1","2","3","4","5","6","7",
+                           "8","9","10","11","12","13","14",
+                           "15","16","17","18","19","20","21",
+                           "22","23","24","25","26","27","28",
+                           "29","30","31","32","33","34","35",
+                           "36","37","38","39","40"))
 
 m<-ggplot(data1,aes(x=scaffold, y=fdM, group=scaffold))+
   ggtitle("Introgression")+
@@ -40,18 +40,18 @@ m1<-ggplot(data1,aes(x=micro.macro, y=fdM, group=micro.macro))+
   theme_bw() +xlab("") + ylab("fdM")
 m1
 
-mean(na.omit(data1$fdM[data1$type=="autosome"]))
-sd(na.omit(data1$fdM[data1$type=="autosome"]))
-se(data1$fdM[data1$type=="autosome"])
-mean(na.omit(data1$fdM[data1$micro.macro=="macro"]))
-sd(na.omit(data1$fdM[data1$micro.macro=="macro"]))
-se(data1$fdM[data1$micro.macro=="macro"])
-mean(na.omit(data1$fdM[data1$micro.macro=="micro"]))
-sd(na.omit(data1$fdM[data1$micro.macro=="micro"]))
-se(data1$fdM[data1$micro.macro=="micro"])
-mean(na.omit(data1$fdM[data1$micro.macro=="Z-chromosome"]))
-sd(na.omit(data1$fdM[data1$micro.macro=="Z-chromosome"]))
-se(data1$fdM[data1$micro.macro=="Z-chromosome"])
+mean(na.omit(data2$fdM[data2$type=="autosome"]))
+sd(na.omit(data2$fdM[data2$type=="autosome"]))
+se(data2$fdM[data2$type=="autosome"])
+mean(na.omit(data2$fdM[data2$micro.macro=="macro"]))
+sd(na.omit(data2$fdM[data2$micro.macro=="macro"]))
+se(data2$fdM[data2$micro.macro=="macro"])
+mean(na.omit(data2$fdM[data2$micro.macro=="micro"]))
+sd(na.omit(data2$fdM[data2$micro.macro=="micro"]))
+se(data2$fdM[data2$micro.macro=="micro"])
+mean(na.omit(data2$fdM[data2$micro.macro=="Z-chromosome"]))
+sd(na.omit(data2$fdM[data2$micro.macro=="Z-chromosome"]))
+se(data2$fdM[data2$micro.macro=="Z-chromosome"])
 
 kruskal.test(fdM~type,data=data1)
 
@@ -118,8 +118,6 @@ p <- ggplot(data_clean, aes(x = x_position, y = fdM, color = chr_color)) +
   ) +
   labs(
     title = "Genome-wide introgression assuming T1",
-    subtitle = paste("Showing", nrow(data_clean), "data points across", 
-                     length(unique(data_clean$scaffold)), "scaffolds"),
     x = "Chromosome",
     y = "fdM"
   ) +
@@ -140,12 +138,12 @@ print(p)
 
 data2 <- read_csv("ABBABABAwindows.w100k.T2.csv")
 data2$scaffold<-factor(data2$scaffold,levels = 
-                        c("1","2","3","4","5","6","7",
-                          "8","9","10","11","12","13","14",
-                          "15","16","17","18","19","20","21",
-                          "22","23","24","25","26","27","28",
-                          "29","30","31","32","33","34","35",
-                          "36","37","38","39","40"))
+                         c("1","2","3","4","5","6","7",
+                           "8","9","10","11","12","13","14",
+                           "15","16","17","18","19","20","21",
+                           "22","23","24","25","26","27","28",
+                           "29","30","31","32","33","34","35",
+                           "36","37","38","39","40"))
 
 m2<-ggplot(data2,aes(x=scaffold, y=fdM, group=scaffold))+
   ggtitle("Introgression")+
@@ -226,8 +224,6 @@ p2 <- ggplot(data_clean, aes(x = x_position, y = fdM, color = chr_color)) +
   ) +
   labs(
     title = "Genome-wide introgression assuming T2",
-    subtitle = paste("Showing", nrow(data_clean), "data points across", 
-                     length(unique(data_clean$scaffold)), "scaffolds"),
     x = "Chromosome",
     y = "fdM"
   ) +
@@ -247,39 +243,39 @@ p2 <- ggplot(data_clean, aes(x = x_position, y = fdM, color = chr_color)) +
 print(p2)
 
 # Read the CSV file
-data3 <- read_csv("ABBABABAwindows.w100k.T3.csv")
-data3$scaffold<-factor(data3$scaffold,levels = 
-                        c("1","2","3","4","5","6","7",
-                          "8","9","10","11","12","13","14",
-                          "15","16","17","18","19","20","21",
-                          "22","23","24","25","26","27","28",
-                          "29","30","31","32","33","34","35",
-                          "36","37","38","39","40"))
+data3 <- read_csv("ABBABABAwindows.w100k.T4.csv")
+data3$scaffold<-factor(data2$scaffold,levels = 
+                         c("1","2","3","4","5","6","7",
+                           "8","9","10","11","12","13","14",
+                           "15","16","17","18","19","20","21",
+                           "22","23","24","25","26","27","28",
+                           "29","30","31","32","33","34","35",
+                           "36","37","38","39","40"))
 
-m4<-ggplot(data3,aes(x=scaffold, y=fdM, group=scaffold))+
+m2<-ggplot(data3,aes(x=scaffold, y=fdM, group=scaffold))+
   ggtitle("Introgression")+
   geom_boxplot(notch=F, outlier.shape=8, fill="red", alpha=0.4)+
   theme_bw() +xlab("") + ylab("fdM p2<->p3")
-m4
+m2
 
-m5<-ggplot(data3,aes(x=micro.macro, y=fdM, group=micro.macro))+
+m3<-ggplot(data3,aes(x=micro.macro, y=fdM, group=micro.macro))+
   ggtitle("Introgression")+
   geom_boxplot(notch=F, outlier.shape=8, fill="red", alpha=0.4)+
   theme_bw() +xlab("") + ylab("fdM")
-m5
+m3
 
-mean(na.omit(data3$fdM[data1$type=="autosome"]))
-sd(na.omit(data3$fdM[data1$type=="autosome"]))
-se(data3$fdM[data1$type=="autosome"])
-mean(na.omit(data3$fdM[data1$micro.macro=="macro"]))
-sd(na.omit(data3$fdM[data1$micro.macro=="macro"]))
-se(data3$fdM[data1$micro.macro=="macro"])
-mean(na.omit(data3$fdM[data1$micro.macro=="micro"]))
-sd(na.omit(data3$fdM[data1$micro.macro=="micro"]))
-se(data3$fdM[data1$micro.macro=="micro"])
-mean(na.omit(data3$fdM[data1$micro.macro=="Z-chromosome"]))
-sd(na.omit(data3$fdM[data1$micro.macro=="Z-chromosome"]))
-se(data3$fdM[data1$micro.macro=="Z-chromosome"])
+mean(na.omit(data3$fdM[data3$type=="autosome"]))
+sd(na.omit(data3$fdM[data3$type=="autosome"]))
+se(data3$fdM[data3$type=="autosome"])
+mean(na.omit(data3$fdM[data3$micro.macro=="macro"]))
+sd(na.omit(data3$fdM[data3$micro.macro=="macro"]))
+se(data3$fdM[data3$micro.macro=="macro"])
+mean(na.omit(data3$fdM[data3$micro.macro=="micro"]))
+sd(na.omit(data3$fdM[data3$micro.macro=="micro"]))
+se(data3$fdM[data3$micro.macro=="micro"])
+mean(na.omit(data3$fdM[data3$micro.macro=="Z-chromosome"]))
+sd(na.omit(data3$fdM[data3$micro.macro=="Z-chromosome"]))
+se(data3$fdM[data3$micro.macro=="Z-chromosome"])
 
 kruskal.test(fdM~type,data=data3)
 
@@ -291,18 +287,6 @@ dunnTest(as.numeric(fdM)~micro.macro,data=data3)
 data_clean <- data3 %>%
   filter(!is.na(fdM) & !is.na(mid)) %>%
   mutate(scaffold = as.character(scaffold))
-
-# Function to extract chromosome number/letter for proper sorting
-extract_chr <- function(scaffold) {
-  # Extract the chromosome part (number or letter after "Chr")
-  chr_match <- regexpr("Chr(\\d+|[A-Z])", scaffold, perl = TRUE)
-  if (chr_match > 0) {
-    chr_part <- regmatches(scaffold, chr_match)
-    chr_value <- gsub("Chr", "", chr_part)
-    return(chr_value)
-  }
-  return(scaffold)
-}
 
 # Add chromosome extraction and create sorting key
 data_clean <- data_clean %>%
@@ -346,9 +330,7 @@ p3 <- ggplot(data_clean, aes(x = x_position, y = fdM, color = chr_color)) +
     guide = "none"  # Hide legend since colors just indicate chromosome alternation
   ) +
   labs(
-    title = "Genome-wide introgression assuming T3",
-    subtitle = paste("Showing", nrow(data_clean), "data points across", 
-                     length(unique(data_clean$scaffold)), "scaffolds"),
+    title = "Genome-wide introgression assuming T2",
     x = "Chromosome",
     y = "fdM"
   ) +
@@ -387,5 +369,3 @@ pdf(file = "../../../Figs_August2025/introgression.boxplots.T1.T2.pdf", width = 
 ggarrange(m, m2,
           ncol = 1, nrow = 2)
 dev.off()
-
-
